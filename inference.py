@@ -17,7 +17,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(current_dir)
 
 from utils.audio_utils import normalize_audio, denormalize_audio, draw_spectrogram
-from utils.settings import get_model_from_config, parse_args_inference
+from utils.settings import get_model_from_config, parse_args_inference, validate_sndfile_subtype
 from utils.model_utils import demix
 from utils.model_utils import prefer_target_instrument, apply_tta, load_start_checkpoint
 
@@ -147,7 +147,7 @@ def run_folder(
             else:
                 codec = "wav"
 
-            subtype = args.pcm_type
+            subtype = validate_sndfile_subtype(args, codec=codec)
 
             # Generate output directory structure using relative paths
             dirnames, fname = format_filename(

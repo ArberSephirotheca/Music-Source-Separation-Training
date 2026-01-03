@@ -229,8 +229,10 @@ def parse_args_inference(dict_args: Union[Dict, None]) -> argparse.Namespace:
     return args
 
 
-def validate_sndfile_subtype(args):
-    codec = 'flac' if getattr(args, 'flac_file', False) else 'wav'
+def validate_sndfile_subtype(args, codec: str | None = None):
+    if codec is None:
+        codec = 'flac' if getattr(args, 'flac_file', False) else 'wav'
+    codec = codec.lower()
     subtype = args.pcm_type
     if subtype in sf.available_subtypes(codec):
         return subtype
