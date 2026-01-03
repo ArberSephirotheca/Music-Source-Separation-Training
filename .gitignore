@@ -72,5 +72,6 @@ Scripts/
 
 *.code-workspace
 
+*.ckpt
 results/
 wandb/
